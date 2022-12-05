@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title th:text="${titulo}">Insert title here</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+	crossorigin="anonymous">
+</head>
+<body>
+	
+	<nav th:replace="fragments/nav :: menu">
+	</nav>
+
+	<div class="container">
+		<h2 class="text-primary" th:text="${titulo}"></h2>
+
+		<form th:action="@{/detalle}" th:object="${productos}" method="post" 
+		enctype="multipart/form-data">
+			<div class="form-group row">
+				<label for="nombre" class="col-sm-2 col-form-label">Nombre</label>
+				<div class="col-sm-6">
+					<input type="text" th:field="*{nombre}" id="nombre" class="form-control"
+					th:classappend="${#fields.hasErrors('nombre')} ? 'is-invalid' : ''" />
+						<small
+						class="form-text text-danger"
+						th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="apellido" class="col-sm-2 col-form-label">Marca</label>
+				<div class="col-sm-6">
+					<input type="text" th:field="*{marca}" id="marca" class="form-control"
+						th:classappend="${#fields.hasErrors('marca')} ? 'is-invalid' : ''" /> <small
+						class="form-text text-danger"
+						th:if="${#fields.hasErrors('marca')}" th:errors="*{marca}"></small>
+				</div>
+			</div>	
+			<div class="form-group row">
+				<label for="email" class="col-sm-2 col-form-label">Precio</label>
+				<div class="col-sm-6">
+					<input type="text" th:field="*{precio}" id="precio" class="form-control"
+						th:classappend="${#fields.hasErrors('precio')} ? 'is-invalid' : ''" /> <small
+						class="form-text text-danger"
+						th:if="${#fields.hasErrors('precio')}" th:errors="*{precio}"></small>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="file" class="col-sm-2 col-form-label">Foto</label>
+				<div class="col-sm-6">
+					<input type="file" name="file" id="foto" class="form-control"/>
+				</div>
+			</div>
+					
+			<div class="form-group row">
+				<div class="col-sm-6">
+					<input type="submit" value="Crear Producto" class="btn btn-primary" />
+				</div>
+			</div>
+			
+			<input type="hidden" th:field="*{codigo}">
+
+		</form>
+	</div>
+	<!-- JavaScript Bundle with Popper -->
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+		crossorigin="anonymous"></script>
+</body>
+</html>
